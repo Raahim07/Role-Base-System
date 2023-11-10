@@ -1,0 +1,250 @@
+﻿@model IEnumerable<FICompliance.BOL.Database.tblUser>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Users List</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="~/ProjectTheme/scss/material-dashboard/bootstrap/scss/_tables.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    @*https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css*@
+
+    <style>
+        .table th {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+            .table th span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModallLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+                <div class="col-lg-offset-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary d-flex align-items-center">
+                            <div class="mr-1">
+                                <i class="material-icons" style="font-size: 2rem;">content_paste</i>
+                            </div>
+                            <h3 style="font-weight: 400" class="card-title">Users List</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" width="100%">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>User Name</th>                                            
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Martial Status</th>
+                                            <th>Nationality</th>
+                                            @if (Session["roleId"].Equals("Admin Maker"))
+                                            {
+                                                <th>Is Active</th>
+                                                <th>Is Archive</th>
+                                                <th>Is Approve</th>
+                                                <th>Actions</th>
+                                            }
+                                            else
+                                            {
+                                                <th>Is Approve</th>
+                                                <th>Actions</th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.userList)
+                                        {
+                                            <tr>
+                                                <td style="text-align:left">@item.FullName</td>
+                                                <td>@item.UserName</td>                                               
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone</td>
+                                                <td>@item.MartialStatus</td>
+                                                <td>@item.Nationality</td>
+                                                @if (Session["roleId"].Equals("Admin Maker"))
+                                                {
+                                                    <td>@item.IsActive</td>
+                                                    <td>@item.IsArchive</td>
+                                                    <td>@item.IsApprove</td>
+                                                    <td>
+                                                        <a href="@Url.Action("AddUser", new { item.UserID, item.RoleID, item.FullName, item.UserName, item.Password, item.Email, item.Phone, item.MartialStatus, item.Nationality })"><i class="fas fa-pencil-alt mr-3"></i></a>
+                                                        <a href="#" class="delete-link" data-userid="@item.UserID"><i class="dlt fas fa-trash"></i></a>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <div class="custom-checkbox">
+                                                            <input id="@item.UserID" type="checkbox" class="chk approve-checkbox" @(item.IsApprove ? "checked" : "") />
+                                                        </div>
+                                                    </td>
+                                                    <td>                                                        
+                                                        <a href="#" data-toggle="modal" class="view-link" data-target="#userDetailsModal" data-userid="@item.UserID"><i class="fas fa-eye"></i></a>
+                                                    </td>
+                                                }
+
+                                                @if (Session["roleId"].Equals("Checker"))
+                                                {
+                                                    <td>
+                                                        @if (!item.IsActive && !item.IsArchive)
+                                                        {
+                                                            @*<button class="approve btn btn-success" data-userid="@item.UserID">Accept</button>
+                                            <button class="reject btn btn-danger" data-userid="@item.UserID">Reject</button>*@
+                                                            <i class="approve fas fa-check text-success fa-2x" data-userid="@item.UserID"></i>
+                                                            <i class="reject fas fa-times text-danger fa-2x" data-userid="@item.UserID"></i>
+                                                        }
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+
+                <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+                <script>
+        $(document).ready(function () {
+
+            $(".chk").change(function (e) {
+                e.preventDefault();
+                var userId = $(this).attr("id");
+                var isChecked = this.checked;
+
+                $.ajax({
+                    url: "@Url.Action("UpdateUserStatus", "Login")",
+                    type: 'POST',
+                    data: { userId: userId, isChecked: isChecked },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.reload();
+                        } else {
+                            alert("Failed to update user status.");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while updating user status.");
+                    }
+                });
+            });
+
+            $(".delete-link").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).attr("data-userid");
+                var isChecked = true;
+
+                $.ajax({
+                    url: "@Url.Action("DeleteUserStatus", "Login")",
+                    type: 'POST',
+                    data: { userId: userId, isChecked: isChecked },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Request sent to Checker.')
+                            window.location.reload();
+                        } else {
+                            alert("Failed to delete user.");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while deleting user.");
+                    }
+                });
+            });
+
+            $(".approve").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).attr("data-userid");
+                var isChecked = true;
+
+                $.ajax({
+                    url: "@Url.Action("ApproveUserStatus", "Login")",
+                    type: 'POST',
+                    data: { userId: userId, isChecked: isChecked },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.reload();
+                        } else {
+                            alert("Failed to approve user.");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while approving user.");
+                    }
+                });
+            });
+
+            $(".reject").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).attr("data-userid");
+                var isChecked = false;
+
+                $.ajax({
+                    url: "@Url.Action("RejectUserStatus", "Login")",
+                    type: 'POST',
+                    data: { userId: userId, isChecked: isChecked },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.reload();
+                        } else {
+                            alert("Failed to reject user.");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error occurred while rejecting user.");
+                    }
+                });
+            });
+
+              $(".view-link").click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data("userid");
+
+                $.ajax({
+                    url: "@Url.Action("_GetUserDetails", "Login")",
+                    type: "POST",
+                    data: { userId: userId },
+                    success: function (result) {
+                        if (result) {
+                            $("#userDetailsModal .modal-content").html(result);
+                            $("#userDetailsModal").modal("show");
+                        } else {
+                            alert("Failed to retrieve user details.");
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching user details.");
+                    }
+                });
+            });
+    });
+
+
+                </script>
+
+
+</body>
+</html>

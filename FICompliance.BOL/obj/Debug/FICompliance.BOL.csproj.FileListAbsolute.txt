@@ -1,0 +1,12 @@
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\FICompliance.BOL.dll.config
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\FICompliance.BOL.dll
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\FICompliance.BOL.pdb
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\EntityFramework.dll
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\EntityFramework.xml
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\obj\Debug\FICompliance.BOL.csproj.AssemblyReference.cache
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\obj\Debug\FICompliance.BOL.csproj.CoreCompileInputs.cache
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\obj\Debug\FICompliance.BOL.csproj.CopyComplete
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\obj\Debug\FICompliance.BOL.dll
+C:\Users\dell\Desktop\Adeela\FICompliance\FICompliance.BOL\obj\Debug\FICompliance.BOL.pdb

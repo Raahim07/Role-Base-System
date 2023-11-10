@@ -1,0 +1,195 @@
+﻿@model FICompliance.BOL.Database.tblUser
+@{
+    ViewBag.Title = "AddUser";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="~/ProjectTheme/scss/material-dashboard/bootstrap/scss/_tables.scss">
+    <!-- Add any additional CSS or scripts you may have -->
+</head>
+
+<style>
+    .dark-label {
+        font-weight: 500;
+        font-size: medium
+    }
+</style>
+
+@using (Html.BeginForm("AddUser", "Login", FormMethod.Post, new { id = "userForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-14">
+        <div class="card">
+            <div class="card-header card-header-primary d-flex align-items-center">
+                <div class="mr-1">
+                    <i class="material-icons" style="font-size: 2rem;">person_add</i>
+                </div>
+                <h3 style="font-weight: 400" class="card-title">Create User</h3>
+            </div>
+            <div class="form-horizontal ml-lg-5 mt-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group row">
+                    @Html.HiddenFor(model => model.UserID)
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.tblRole.RoleTypeName, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.DropDownListFor(model => model.RoleID, new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Admin Maker", Value = "1" },
+                            new SelectListItem { Text = "Admin Checker", Value = "2" },
+                            new SelectListItem { Text = "Maker", Value = "7" },
+                            new SelectListItem { Text = "Checker", Value = "8" }
+                        }, "Select Role", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        <span id="userNameError" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <span id="userEmailError" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        <span id="userPhoneError" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.MartialStatus, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.DropDownListFor(model => model.MartialStatus, new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Single", Value = "Single" },
+                            new SelectListItem { Text = "Married", Value = "Married" }
+                        }, "Select Marital Status", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MartialStatus, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label dark-label" })
+                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 mb-3">
+                        <input type="submit" value="CREATE" id="submitUserForm" class="btn btn-primary pull-left" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/ProjectTheme/js/plugins/bootstrap-notify.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    @*$("#submitUserForm").click(function() {
+            // Serialize the form data
+            var formData = $("#userForm").serialize();
+
+            $.ajax({
+                url: "@Url.Action("AddUser", "Login")",
+                type: "POST",
+                data: formData,
+                success: function (result) {
+                    window.location.href = "/UsersList/Login"
+                },
+                error: function(error) {
+                    // Handle the error
+                }
+            });
+        });*@
+    $("#UserName").change(function () {
+        var userName = $(this).val();
+        $.ajax({
+            url: "@Url.Action("CheckUserExists", "Login")",
+            type: "POST",
+            data: { userName: userName },
+            success: function (result) {
+                if (result.exists) {
+                    $("#userNameError").text("User with this username already exists.");
+                } else {
+                    $("#userNameError").text("");
+                }
+            },
+            error: function () {
+                $("#userNameError").text("An error occurred.");
+            }
+        });
+    });
+
+    $("#Email").change(function () {
+        var userEmail = $(this).val();
+        $.ajax({
+            url: "@Url.Action("CheckUserExists", "Login")",
+            type: "POST",
+            data: { userEmail: userEmail },
+            success: function (result) {
+                if (result.exists) {
+                    $("#userEmailError").text("User with this email already exists.");
+                } else {
+                    $("#userEmailError").text("");
+                }
+            },
+            error: function () {
+                $("#userEmailError").text("An error occurred.");
+            }
+        });
+    });
+
+    $("#Phone").change(function () {
+        var userPhone = $(this).val();
+        $.ajax({
+            url: "@Url.Action("CheckUserExists", "Login")",
+            type: "POST",
+            data: { userPhone: userPhone },
+            success: function (result) {
+                if (result.exists) {
+                    $("#userPhoneError").text("User with this phone number already exists.");
+                } else {
+                    $("#userPhoneError").text("");
+                }
+            },
+            error: function () {
+                $("#userPhoneError").text("An error occurred.");
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,116 @@
+﻿@model FICompliance.BOL.Database.tblUser
+
+@{
+    ViewBag.Title = "UsersProfile";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Users List</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="~/ProjectTheme/scss/material-dashboard/bootstrap/scss/_tables.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    @*https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css*@
+</head>
+
+<style>
+    .dark-label {
+        font-weight: 500; /* Change this to the color you want for dark labels */
+        font-size: medium
+    }
+
+    .card-header.card-header-primary {
+        padding-bottom: 5px; /* Adjust the value to decrease the gap */
+    }
+    </style>
+<div class="col-md-14">
+    <div class="card">
+        <div class="card-header card-header-primary" style="padding-bottom: 1px; padding-top: 1px">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="d-flex align-items-center">
+                        <div class="mr-1">
+                            <i class="material-icons" style="font-size: 2rem;">person</i>
+                        </div>
+                        <h3 style="font-weight: 400" class="card-title">Profile Info</h3>
+                    </div>
+                </div>
+                <div>
+                    <a href="@Url.Action("AddUser", new { @Model.UserID, @Model.RoleID, @Model.FullName, @Model.UserName, @Model.Password, @Model.Email, @Model.Phone, @Model.MartialStatus, @Model.Nationality })">
+                    <div class="d-flex flex-column align-items-center" style="margin-top: 8px">
+                    <i style="color: white" class="fas fa-pencil-alt fa-2x"></i>
+                    <p style="color: white; font-weight: 500">Edit Profile</p>
+                </div>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="card-body ml-lg-5 mr-lg-5">
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.FullName, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.FullName, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.UserName, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.UserName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-top: 1px solid #ccc" />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Password, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.Password, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Email, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.Email, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-top: 1px solid #ccc" />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Phone, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.Phone, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.MartialStatus, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.MartialStatus, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-top: 1px solid #ccc" />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Nationality, new { @class = "formcontrol dark-label" })
+                                    <br />
+                                    @Html.DisplayFor(model => model.Nationality, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

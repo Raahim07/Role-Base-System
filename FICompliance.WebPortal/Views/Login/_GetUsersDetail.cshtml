@@ -1,0 +1,28 @@
+﻿@model FICompliance.BOL.Database.tblUser
+
+<div class="col-md-10 col-md-offset-3" style="margin-top:5px; align-self:center; padding-top:5px;">
+    <div class="modal-header d-flex justify-content-between">
+        <h3 class="modal-title" style="font-weight: bold" userDetailsModalLabel">User Details</h3>
+        <button style="background-color: red; width: 50px; height: 50px; margin-top: 5px" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Full Name:</label>
+                <p>@Model.FullName</p>
+                <label>User Name:</label>
+                <p>@Model.UserName</p>                
+                <label>Email:</label>
+                <p>@Model.Email</p>
+                <label>Phone:</label>
+                <p>@Model.Phone</p>
+                <label>Martial Status:</label>
+                <p>@Model.MartialStatus</p>
+                <label>Nationality:</label>
+                <p>@Model.Nationality</p>
+            </div>
+        </div>
+    </form>
+</div>
