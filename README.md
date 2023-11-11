@@ -32,7 +32,7 @@ To set up and run the FICompliance System locally, follow these steps:
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/FICompliance.git
+    git clone https://github.com/Raahim07/FICompliance.git
     ```
 
 2. **Database Setup:**
