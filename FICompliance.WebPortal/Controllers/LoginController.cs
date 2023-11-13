@@ -163,18 +163,13 @@ namespace FICompliance.WebPortal.Controllers
             dbContextComp db = new dbContextComp();
 
             string username = User.Identity.GetUserName();
-            int roleId = _userLogicsBLL.GetRoleID(username);           
+            int roleId = _userLogicsBLL.GetRoleID(username);
 
             var recordsForRole = db.tblRolesMenu.Where(rm => rm.RoleID == roleId).ToList();
-            
-            var menuNamesForRole =
-            (from rm in recordsForRole
-            join menu in db.tblMenus on rm.MenuID equals menu.MenuID
-            select menu.MenuName).ToList();
 
-            string selectedMenuName = menuNamesForRole.FirstOrDefault(menuName => menuName == "Users List");
+            var menuForAddUser = recordsForRole.FirstOrDefault(rm => rm.MenuID == 2); // Assuming 1 corresponds to "Add User" menu in tblMenus
 
-            if (User.Identity.IsAuthenticated && selectedMenuName != null )
+            if (User.Identity.IsAuthenticated && menuForAddUser.IsAllowed )
             {
                     string userName = User.Identity.Name;
                     ViewBag.userList = _userLogicsBLL.GetUsersList().Where(u => u.UserName != userName && u.IsArchive == false);
@@ -182,42 +177,29 @@ namespace FICompliance.WebPortal.Controllers
             }
             return RedirectToAction("Index","Home");
         }
-        
+
         public ActionResult AddUser(tblUser user)
         {
+            dbContextComp db = new dbContextComp();
+
             string username = User.Identity.GetUserName();
             int roleId = _userLogicsBLL.GetRoleID(username);
-            int loggedInUserId = _userLogicsBLL.GetUserId(username);
 
-//            var menuIdToCheck = (
-//    from u in db.tblUsers
-//    join r in db.tblRoles on u.RoleID equals r.ID
-//    join rm in db.tblRolesMenu on r.ID equals rm.RoleID
-//    where u.UserID == loggedInUserId
-//    select rm.MenuID
-//).ToList();
+            var recordsForRole = db.tblRolesMenu.Where(rm => rm.RoleID == roleId).ToList();
 
-            //var recordsForRole = db.tblRolesMenu.Where(rm => rm.RoleID == roleId).ToList();
-            bool hasAccess = (
-    from rm in db.tblRolesMenu
-    where rm.RoleID == roleId select 
-).ToList();
-            //var menuNamesForRole =
-            //(from rm in recordsForRole
-            // join menu in db.tblMenus on rm.MenuID equals menu.MenuID
-            // select menu.MenuName).ToList();
+            var menuForAddUser = recordsForRole.FirstOrDefault(rm => rm.MenuID == 1); // Assuming 1 corresponds to "Add User" menu in tblMenus
 
-           // string selectedMenuName = menuNamesForRole.FirstOrDefault(menuName => menuName == "add user");
-            if (User.Identity.IsAuthenticated && hasAccess)
+            // Check if the user has permission for the "Add User" menu (IsAllowed == 1)
+            if (User.Identity.IsAuthenticated && menuForAddUser.IsAllowed)
             {
                 return View(user);
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
-            
         }
+
 
         [HttpPost]
         public ActionResult CheckUserExists(string userName, string userEmail, string userPhone)
