@@ -2,7 +2,7 @@
 
 ## Overview
 
-FICompliance is a Role-Based System built using C# ASP.NET MVC and SQL Server. The system follows the N-tier architecture, organized into different layers including FICompliance.DAL, FICompliance.BOL, FICompliance.BLL, and FICompliance.WebPortal.
+FICompliance is a Role-Based System built using C# ASP.NET MVC and SQL Server. The system follows the N-tier architecture, organized into different layers including FICompliance.DAL, FICompliance.BOL, FICompliance.BLL, and FICompliance.WebPortal. The project has been developed using the Code First approach for database design.
 
 ## Features
 
@@ -10,7 +10,7 @@ The key features of the system include:
 
 - **Role-Based Access Control:** The system implements a role-based access control mechanism with the roles of Maker and Checker.
 
-- **User Management:** The Maker role has the rights to create, delete, and update users. 
+- **User Management:** The Maker role has the rights to create, delete, and update users.
 
 - **Approval Workflow:** The Checker role is responsible for approving actions initiated by the Maker, providing a secure and controlled environment.
 
@@ -19,7 +19,7 @@ The key features of the system include:
 The application is structured into the following layers:
 
 - **FICompliance.DAL:** Data Access Layer responsible for interacting with the database.
-  
+
 - **FICompliance.BOL:** Business Object Layer containing business entities and validations.
 
 - **FICompliance.BLL:** Business Logic Layer implementing the application's business rules.
