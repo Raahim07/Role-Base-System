@@ -45,7 +45,4 @@ To set up and run the FICompliance System locally, follow these steps:
     - Open the solution in Visual Studio and build the solution.
     - Run the application.
 
-## Contribution Guidelines
-
-If you would like to contribute to the development of the FICompliance System, please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
