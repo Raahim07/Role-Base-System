@@ -49,6 +49,3 @@ To set up and run the FICompliance System locally, follow these steps:
 
 If you would like to contribute to the development of the FICompliance System, please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
