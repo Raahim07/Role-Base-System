@@ -1,48 +1,41 @@
-# FICompliance System
+# 🔐 **FICompliance System**
 
-## Overview
+## 🚀 **Overview**
 
-FICompliance is a Role-Based System built using C# ASP.NET MVC and SQL Server. The system follows the N-tier architecture, organized into different layers including FICompliance.DAL, FICompliance.BOL, FICompliance.BLL, and FICompliance.WebPortal. The project has been developed using the Code First approach for database design.
+FICompliance is a **Role-Based System** built with **C# ASP.NET MVC** and **SQL Server**. It follows an **N-tier architecture**, separating the project into various layers like **FICompliance.DAL**, **FICompliance.BOL**, **FICompliance.BLL**, and **FICompliance.WebPortal**. The database design follows the **Code First** approach, ensuring flexibility and ease of migration.
 
-## Features
+## ✨ **Key Features**
 
-The key features of the system include:
+- 🛡️ **Role-Based Access Control:** Securely manages user roles like **Maker** and **Checker** to ensure authorized access.
+- 👤 **User Management:** The **Maker** role can create, delete, and update users within the system.
+- ✅ **Approval Workflow:** Actions initiated by the **Maker** must be approved by the **Checker**, creating a controlled and compliant environment.
 
-- **Role-Based Access Control:** The system implements a role-based access control mechanism with the roles of Maker and Checker.
+## 🏗️ **N-Tier Architecture**
 
-- **User Management:** The Maker role has the rights to create, delete, and update users.
+The system's layers include:
 
-- **Approval Workflow:** The Checker role is responsible for approving actions initiated by the Maker, providing a secure and controlled environment.
+- **🗄️ FICompliance.DAL:** Handles all database interactions.
+- **📦 FICompliance.BOL:** Contains business entities and validation logic.
+- **🧠 FICompliance.BLL:** Implements business rules for the application.
+- **💻 FICompliance.WebPortal:** The **ASP.NET MVC** front-end that handles user interactions and displays data.
 
-## N-tier Architecture
+## 🛠️ **Getting Started**
 
-The application is structured into the following layers:
+Follow these steps to get the system up and running:
 
-- **FICompliance.DAL:** Data Access Layer responsible for interacting with the database.
+### 1. **📥 Clone the Repository**
+```bash
+git clone https://github.com/Raahim07/Role-Base-System
+```
 
-- **FICompliance.BOL:** Business Object Layer containing business entities and validations.
+### 2. **🗄️ Database Setup**
+- Run the SQL scripts located in the `DatabaseScripts` folder to set up the necessary database and tables.
 
-- **FICompliance.BLL:** Business Logic Layer implementing the application's business rules.
+### 3. **🔗 Configure Connection String**
+- Open the `web.config` file in the **FICompliance.WebPortal** project and update the connection string with your database credentials.
 
-- **FICompliance.WebPortal:** Presentation Layer built using C# ASP.NET MVC, handling user interface and interactions.
+### 4. **🏃 Build and Run**
+- Open the project in **Visual Studio**, build the solution, and hit **Run** to launch the app!
+- 
 
-## Getting Started
-
-To set up and run the FICompliance System locally, follow these steps:
-
-1. **Clone the Repository:**
-    ```bash
-    git clone https://github.com/Raahim07/Role-Base-System
-    ```
-
-2. **Database Setup:**
-    - Execute SQL scripts in the `DatabaseScripts` folder to create the required database and tables.
-
-3. **Configure Connection String:**
-    - Update the connection string in the `web.config` file of the `FICompliance.WebPortal` project with your database details.
-
-4. **Build and Run:**
-    - Open the solution in Visual Studio and build the solution.
-    - Run the application.
-
-
+💡 *Pro tip: Customize roles and add more features by expanding the logic in the BLL layer!*
